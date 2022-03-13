@@ -654,7 +654,7 @@ Moreover, we would like to see how the complexity of \msort and \qusort is relat
 
 One advantage of \msort over \qusort is that \msort is stable. In general, \msort takes $\mathcal{O}(n)$ more working memory than \qusort as required by merging. 
 In our experiments, we see that both methods slow down on long lists of heavy items. Timsort works better than our \msort on such case, but is still slower than \qusortn. 
-\textcolor{blue}{This is evident from Table~\ref{table3} where hyb2 is shown to be the best for lists of 256 numbers.}
+\textcolor{blue}{This is evident from Table~\ref{table3} that hyb2 is shown to be the best for lists of 256 numbers.}
 Our experiment has been run on a linux machine with an Intel(R) Xeon(R) CPU E5-2667 (20M Cache and 3.20GHz) and 64GB memory. 
 Further experiments are needed to test the limits of both methods and search for better techniques to deal with memory shortage. 
 We would also like to test our program on different machines and investigate the impact of cache memory. 
