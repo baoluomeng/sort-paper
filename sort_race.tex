@@ -149,13 +149,13 @@ As in any relay competition, the fairest performance metric would be the total t
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \toprule\
-\# & Year & OS & Author & Algorithm & Reference\\
+\# & Year & OS & Author & Algorithm\\
 \midrule
-1 & 1972 & Unix & Lee Mcmahon & CAR Hoare's quick sort  & \cite{hoare1961algorithm}\\
-2 & 1983 & BSD & Lee Mcmahon & CAR Hoare's quick sort  & \cite{hoare1961algorithm}\\
-3 & 1991 & BSD & Douglas Schmidt & Bentley \& McIlroy’s quick sort  & \cite{bentley1993engineering}\\
-4 & 1991 & GNU & Douglas Schmidt & Bentley \& McIlroy’s quick sort  & \cite{bentley1993engineering}\\
-5 & 1998 & GNU & Mike Haertel & John von Neumann's merge sort  & \cite{knuth1998sorting}\\
+1 & 1972 & Unix & Lee Mcmahon & CAR Hoare's quick sort~\cite{hoare1961algorithm}\\
+2 & 1983 & BSD & Lee Mcmahon & CAR Hoare's quick sort~\cite{hoare1961algorithm}\\
+3 & 1991 & BSD & Douglas Schmidt & Bentley \& McIlroy’s quick sort~\cite{bentley1993engineering}\\
+4 & 1991 & GNU & Douglas Schmidt~\cite{gnuqsort} & Bentley \& McIlroy’s quick sort~\cite{bentley1993engineering}\\
+5 & 1993 & GNU & Mike Haertel~\cite{gnumergesort} & John von Neumann's merge sort~\cite{knuth1998sorting}\\
 \bottomrule
 \end{tabular}
 \label{qsortalgo}
@@ -165,7 +165,7 @@ We will call an input array of elements for sorting as an instance and use insta
 The same instance and the same comparison function will be used by all participants, and all implementations will be compiled into one single program. 
 Since selection sort and bubble sort perform poorly on any large instance, they are disqualified from the race. 
 To be fair, the copy of \qusort with the best performance is used.
-Finally, five different sorting methods are chosen as participants in this race: insertion sort, shellsort~\cite{knuth97}, mergesort~\cite{mcilroy1993optimistic}, heapsort~\cite{williams1964algorithm}, and quicksort~\cite{hoare1961algorithm}\textcolor{blue}{(Table~\ref{qsortalgo}, row 2)}.
+Finally, five different sorting methods are chosen as participants in this race: insertion sort, shellsort~\cite{knuth97}, mergesort~\cite{mcilroy1993optimistic}, heapsort~\cite{williams1964algorithm}, and quicksort~\cite{hoare1961algorithm}.
 %To be clear, we summarize all the \qusort algorithms used in the paper excluding our own implementations in Table~\ref{qsortalgo}. 
 
 \begin{table}
@@ -185,7 +185,7 @@ average time & 126509 & -- &	5.18& 1.98 & 1.15 & \textbf{1.00} & 1.42 & 1.13 \\
 \label{table1}
 \end{table}
 
-Table~\ref{table1} shows the experimental results of our implementations of the five sorting methods plus the GNU C library \qsort \textcolor{blue}{(Table~\ref{qsortalgo}, row 5)} and \tsortn~\cite{timsort}, on four types of \textcolor{blue}{integer lists} as used in Demo, i.e., random, reverse sorted, nearly sorted, and few unique. 
+Table~\ref{table1} shows the experimental results of our implementations of the five sorting methods plus the GNU C library function \qsort \textcolor{blue}{(Table~\ref{qsortalgo}, row 5)} and \tsortn~\cite{timsort}, on four types of \textcolor{blue}{integer lists} as used in Demo, i.e., random, reverse sorted, nearly sorted, and few unique. 
 All the methods are implemented in C and compiled as a single executable by gcc with optimization “-O3”. 
 The executable takes two parameters, the size and the type of the instance, and generates one instance and then run all the sorting methods on this instance. 
 This way, the same set of instances is used for each method.
@@ -219,12 +219,12 @@ Nowadays, the most popular \qsort is the GNU project’s libc implementation whi
 This \qsort is interesting in that it shuns \qusort in favor of conventional topdown \msortn, due to the poor performance of \qusort on some types of instances~\cite{gnumergesort}.  
 Tim Peters created $timsort$ based on Peter McIlroy’s idea of natural mergesort~\cite{mcilroy1993optimistic}, which consists of two phases: in phase 1, sorted subarrays (called runs) are identified from the input; in phase 2, two \textcolor{blue}{runs} are merged into one run, until only one run remains. 
 The two phases can be interleaved. 
-There are several implementations based on natural \msortn, such as \tsortn~\cite{timsort}, the GNU \qsortn, and $neatsort$~\cite{la2014neatsort}. 
+There are several implementations based on natural \msortn, such as \tsortn~\cite{timsort}, and $neatsort$~\cite{la2014neatsort}. 
 Different techniques are used in these implementations. 
 As the first goal of this article, we will try to identify which techniques are more effective and which are less effective through extensive experiments. 
 From now on, by \msortn, we mean natural \msortn~\cite{mcilroy1993optimistic}.
 
-The most popular \qsort is the BSD \qsort \textcolor{blue}{(Table \ref{qsortalgo}, row 3)}, which is a version of \qusort based on Bentley and McIlroy’s \qsort function. 
+The BSD \qsort \textcolor{blue}{(Table \ref{qsortalgo}, row 3)} is a version of \qusort based on Bentley and McIlroy’s \qsort function. 
 A significant deviation from Bentley and McIlroy’s \qsort is that the BSD \qsort resorts to insertion sort, not only for small arrays, but also whenever a partitioning round is completed without having moved any elements. 
 The latter is intended to capture nearly sorted inputs, since insertion sort will handle these cases efficiently. 
 However, this technique may \textcolor{blue}{missfire}. We found by accident that the BSD \qsort performs poorly on a set of instances. 
@@ -255,7 +255,7 @@ Let $Run(A)$ be the number of such subarrays:
 \[ Run(A) = | \{i : 1 \leq i < n, a_i > a_{i+1}\} | + 1 \]     
 
 When $A$ is sorted, $Run(A) = 1$. When $A$ is reverse sorted, the number of runs is maximal $(Run(A) = n)$; in this case, reversing the array, which takes $\mathcal{O}(n)$ time, will make $A$ sorted. 
-In other words, neither \textcolor{blue}{$\mbox{\it Inv}(A)$} nor $Run(A)$ reflects the difficulty of making A sorted. 
+In other words, neither \textcolor{blue}{$\mbox{\it Inv}(A)$} nor $Run(A)$ reflects the difficulty of making $A$ sorted. 
 Hence, we prefer another measure over \textcolor{blue}{$\mbox{\it Inv}(A)$} and $Run(A)$. 
 For instance, we are interested in the minimal number $k$ such that $A$ can be broken into $k$ subarrays, each of which is monotonic (i.e., either sorted or reverse sorted).       
 
@@ -276,11 +276,11 @@ The "few unique" instance used in Demo can be mapped to a 2-limited array of 50 
 If we keep the same ratio of $2^2/50 = 2^k/2,000,000$, we get $k = 12$.  
 For the "few unique" instance in Table~\ref{table1}, we used 12-limited arrays.  
 When $k \ge 31$, it is the same as randomized integers. 
-The best sorting method for the $k$-limited is the $3$-way $quicksort$ used in Demo and is related to Dijkstra’s Dutch National Flag problem~\cite{KIM2009454} (more details can be found in section 4).
+The best sorting method for the $k$-limited is the $3$-way $quicksort$ used in Demo and is related to Dijkstra’s Dutch National Flag problem~\cite{kim2009improving} (more details can be found in section 4).
 
 \item \textbf{$k$-equal teeth}: 
 A \keq \ (or \textcolor{blue}{\emph{k-equal saw teeth}}) array can be constructed as follows: Divide an array of $n$ elements into $k$ disjoint, equal-length subarrays and each subarray is filled with the numbers from $1$ to $n/k$. Obviously, if $A$ is a \keq, $Run(A) = \mono = k$. If $k = 1$, then $A$ is sorted. 
-Among all comparison-based sorting algorithms, \msort is the best one for this class of instances
+Among all comparison-based sorting algorithms, \msort is the best one for this class of instances.
 
 \item \textbf{$k$-even teeth}:  A \kev \ array can be constructed from \keq \ as follows: 
 Reverse each odd numbered subarray of a \keq. 
@@ -445,10 +445,10 @@ Recursive calls apply to the first and the last parts.
 The 2-way splitting in any standard textbook~\cite{10.5555/1614191} also splits the array into three parts: the elements less than the pivot, the pivot, and the elements no less than the pivot. 
 Using (e) without (d), the array is split into two parts: the elements no greater than the pivot and the elements no less than the pivot. 
 
-The BSD \qsort function \textcolor{blue}{(Table \ref{qsortalgo}, row 3)} in the C library has some deviation from \textcolor{blue}{B\&M \qsortn}: the BSD \qsort also \textcolor{blue}{uses} insertion sort instead of recursive calls of \qsort, whenever a splitting round is completed without having moved any elements. 
-This idea is intended to capture nearly sorted inputs and may perform poorly for certain inputs. 
-For instance, if an array contains $2m+1$ distinct integers, the first $m$ integers are the reversed list of numbers, the middle element is $m+1$, the last $m$ integers are the reversed $m+2$ through $2m+1$, then the BSD \qsort will use insertion sort to sort two reversed lists of $m$ elements. 
-We have tested the BSD \qsort on the 12 classes of inputs and its performance is very poor for the class of $k$-sharp teeth arrays. 
+%The BSD \qsort function \textcolor{blue}{(Table \ref{qsortalgo}, row 3)} in the C library has some deviation from \textcolor{blue}{B\&M \qsortn}: the BSD \qsort also \textcolor{blue}{uses} insertion sort instead of recursive calls of \qsort, whenever a splitting round is completed without having moved any elements. 
+%This idea is intended to capture nearly sorted inputs and may perform poorly for certain inputs. 
+%For instance, if an array contains $2m+1$ distinct integers, the first $m$ integers are the reversed list of numbers, the middle element is $m+1$, the last $m$ integers are the reversed $m+2$ through $2m+1$, then the BSD \qsort will use insertion sort to sort two reversed lists of $m$ elements. 
+%We have tested the BSD \qsort on the 12 classes of inputs and its performance is very poor for the class of $k$-sharp teeth arrays. 
 Besides the ideas used by Bentley and McIlroy, we also have tested the following two ideas:
 
 \begin{enumerate}[(f)]

@@ -7,6 +7,7 @@
 %% Saved with string encoding Unicode (UTF-8) 
 
 
+
 @article{knuth1998sorting,
   title={Sorting by merging. The art of computer programming},
   author={Knuth, DE},
@@ -15,31 +16,21 @@
   year={1998}
 }
 
-@url{gnumergesort,
-	author = {{GNU implementation of mergesort used in qsort}},
-	date-added = {2021-12-27 14:19:06 -0600},
-	date-modified = {2021-12-27 14:39:12 -0600},
-	lastchecked = {12/27/2021},
-	title = {https://code.woboq.org/userspace/glibc/stdlib/msort.c.html},
-	urldate = {12/27/2021}}
-
-@article{KIM2009454,
-	abstract = {Bentley and Sedgewick proposed multikey Quicksort with `split-end' partitioning for sorting strings. But it can be slow in case of many equal elements because it adopted `split-end' partitioning that moves equal elements to the ends and swaps back to the middle. We present `collect-center' partitioning to improve multikey Quicksort in that case. It moves equal elements to the middle directly like the `Dutch National Flag Problem' partitioning approach and it uses two inner loops like Bentley and McIlroy's. In case of many equal elements such as DNA sequences, HTML files, and English texts, multikey Quicksort with `collect-center' partitioning is faster than multikey Quicksort with `split-end' partitioning.},
-	author = {Eunsang Kim and Kunsoo Park},
-	date-added = {2021-12-27 11:18:08 -0600},
-	date-modified = {2021-12-27 11:18:08 -0600},
-	doi = {https://doi.org/10.1016/j.ipl.2009.01.007},
-	issn = {0020-0190},
-	journal = {Information Processing Letters},
-	keywords = {Algorithms, String sorting, Multikey Quicksort, Ternary partitioning},
-	number = {9},
-	pages = {454-459},
-	title = {Improving multikey Quicksort for sorting strings with many equal elements},
-	url = {https://www.sciencedirect.com/science/article/pii/S002001900900012X},
-	volume = {109},
-	year = {2009},
-	bdsk-url-1 = {https://www.sciencedirect.com/science/article/pii/S002001900900012X},
-	bdsk-url-2 = {https://doi.org/10.1016/j.ipl.2009.01.007}}
+@misc{gnumergesort,
+	howpublished = {{https://code.woboq.org/userspace/glibc/stdlib/msort.c.html}},
+	note = {Accessed: 2022-03-12},
+	title = {GNU implementation of mergesort used in qsort}}
+	
+@article{kim2009improving,
+  title={Improving multikey Quicksort for sorting strings with many equal elements},
+  author={Kim, Eunsang and Park, Kunsoo},
+  journal={Information processing letters},
+  volume={109},
+  number={9},
+  pages={454--459},
+  year={2009},
+  publisher={Elsevier}
+}
 
 @article{knuth97,
 	author = {Knuth, Donald E.},
@@ -67,7 +58,7 @@
 	year = {1964}}
 
 @article{hoare1961algorithm,
-	author = {{Hoare, Charles Antony Richard}},
+	author = {Hoare, Charles Antony Richard},
 	journal = {Communications of the ACM},
 	number = {7},
 	pages = {321},
@@ -88,9 +79,9 @@
 	title = {Sorting Algorithms Animations}}
 	
 @misc{gnuqsort,
-	howpublished = {\url{https://code.woboq.org/userspace/glibc/stdlib/qsort.c.html}},
+	howpublished = {\url{https://github.com/lattera/glibc/blob/master/stdlib/qsort.c}},
 	note = {Accessed: 2022-03-12},
-	title = {GNU implementation of qsort}}
+	title = {GNU implementation of quicksort used in qsort}}
 
 @misc{bsdqsort,
 	howpublished = {\url{https://github.com/freebsd/freebsd-src/blob/main/lib/libc/stdlib/qsort.c}},
