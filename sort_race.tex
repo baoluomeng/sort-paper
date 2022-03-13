@@ -496,7 +496,7 @@ For reference, we also copied four versions of \msort from Table 2: mer5, mer6, 
 The seven quicksort implementations are: (1) B\&M, Bentley and McIlroy’s \qsort function. (2) 3-way: the 3-way \qusort uses the ideas of (a) to (f), and is almost identical to B\&M except (f), i.e., test if the array is sorted as a preprocessing step. (3) 2-way: the 2-way \qusort using the ideas of (a), (b), (c), (e), and (f). (4)-(7): Four variants of hybrid \qusort using the ideas of (a)-(g), i.e., hyb1, hyb2, hyb3, and hyb4, with $(\alpha, \beta) = (16, 16), (32, 32), (32, 64),$ and $(16, 32)$ respectively. 
 The BSD \qsort is excluded here because it performs poorly on the k-sharp teeth instances when $k \geq 5$.
 
-The performances of all methods on randomized inputs (the first five classes) are about the same, with the GNU \qsort \textcolor{blue}{(Table \ref{qsortalgo}, row 3)} being the worst performer. 
+The performances of all methods on randomized inputs (the first five classes) are about the same, with the GNU \qsort \textcolor{blue}{(Table \ref{qsortalgo}, row 5)} being the worst performer. 
 The high cost on the class of random 256-lists is due to an expensive comparison function and high number of cache misses. 
 Comparing to \msort, \qusort as a \textcolor{blue}{family} is slower on non-randomized inputs. 
 %However, these inputs are no worse than randomized inputs. 
