@@ -425,7 +425,7 @@ For k-exchange, the GNU \qsort is almost eight times slower than mer5.
 
 \section{Select Best QuickSort}       
 As the most popular sorting algorithm, \qusort has been extensively studied by many researchers and various techniques have been proposed. 
-In this study, we consider B\&M’s \qusort implementation \textcolor{blue}{(Table \ref{qsortalgo}, row 3)}. 
+In this study, we \textcolor{blue}{consider B\&M’s \qusort implementation~\cite{bentley1993engineering}}. 
 Let $n$ be the input array size, the following techniques are in B\&M \qusort function: 
 
 \begin{enumerate}[(a)]
@@ -494,7 +494,7 @@ k-exchange&	10075	&9.52	&2.95	&2.44	&2.69	&2.69	&2.18	&2.46	&\textbf{1.00}	&1.09
 
 Table~\ref{table3} shows the performance of seven implementations of \qusort on the same set of inputs used in Table~\ref{table2}. 
 For reference, we also copied four versions of \msort from Table 2: mer5, mer6, Tim and \qsortn. 
-The seven quicksort implementations are: (1) B\&M, Bentley and McIlroy’s \qusort function. (2) 3-way: the 3-way \qusort uses the ideas of (a) to (f), and is almost identical to B\&M except (f), i.e., test if the array is sorted as a preprocessing step. (3) 2-way: the 2-way \qusort using the ideas of (a), (b), (c), (e), and (f). (4)-(7): Four variants of hybrid \qusort using the ideas of (a)-(g), i.e., hyb1, hyb2, hyb3, and hyb4, with $(\alpha, \beta) = (16, 16), (32, 32), (32, 64),$ and $(16, 32)$ respectively. 
+The seven \qusort implementations are: (1) B\&M's \qusort function. (2) 3-way: the 3-way \qusort uses the ideas of (a) to (f), and is almost identical to B\&M except (f), i.e., test if the array is sorted as a preprocessing step. (3) 2-way: the 2-way \qusort using the ideas of (a), (b), (c), (e), and (f). (4)-(7): Four variants of hybrid \qusort using the ideas of (a)-(g), i.e., hyb1, hyb2, hyb3, and hyb4, with $(\alpha, \beta) = (16, 16), (32, 32), (32, 64),$ and $(16, 32)$ respectively. 
 The BSD \qsort is excluded here because it performs poorly on the k-sharp teeth instances when $k \geq 5$.
 
 The performances of all methods on randomized inputs (the first five classes) are about the same, with the GNU \qsort \textcolor{blue}{(Table \ref{qsortalgo}, row 5)} being the worst performer. 
@@ -503,7 +503,7 @@ Comparing to \msort, \qusort as a \textcolor{blue}{family} is slower on non-rand
 %However, these inputs are no worse than randomized inputs. 
 In fact, the hybrid \qusort is the best performer over all the 12 classes of inputs. 
 If we have to select \textcolor{blue}{one implementation} of \qusortn, then hyb2 $(\alpha = \beta = 32)$ is the choice according to Table~\ref{table3}. 
-The GNU \qsort \textcolor{blue}{(Table \ref{qsortalgo}, row 5)} and \textcolor{blue}{B\&M \qusort (Table \ref{qsortalgo}, row 4)} are about 23\% slower than hyb2. 
+The GNU \qsort \textcolor{blue}{(Table \ref{qsortalgo}, row 5)} and \textcolor{blue}{B\&M \qusort~\cite{bentley1993engineering}} are about 23\% slower than hyb2. 
 The use of idea (f) is indispensible for this performance as it helps \qusort to save time on nearly sorted inputs. 
 
 Sarwar et al.~\cite{sarwar1996engineering} once conducted \textcolor{blue}{extensive experiments} on \qusort and tried various methods for selecting a pivot (from 1, 3, 5, 9, and 17 elements). 
