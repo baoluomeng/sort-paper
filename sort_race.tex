@@ -145,17 +145,17 @@ If we choose the best implementation for each sorting algorithm and put them in 
 As in any relay competition, the fairest performance metric would be the total time taken by each method, which will also be used in our sort race. 
 
 \begin{table}
-\caption{\textcolor{blue}{Summary of all quicksort algorithms used in the paper excluding our own implementations.}}
+\caption{\textcolor{blue}{Summary of implementations of the C-library \qsort function.}}
 \centering
-\begin{tabular}{|c|c|c|c|}
-\toprule
-\# & Name& Description & Reference\\
+\begin{tabular}{|c|c|c|c|c|c|}
+\toprule\
+\# & Year & OS & Author & Algorithm & Reference\\
 \midrule
-1 & quicksort & CAR Hoare's quick sort  & \cite{hoare1961algorithm}\\
-2 & B\&M qsort& Bentley \& McIlroy's quick sort & \cite{bentley1993engineering}\\
-3 & GNU qsort & Quick sort function in GNU C library & \cite{gnuqsort}\\
-4 & BSD qsort & Quick sort function in BSD C library & \cite{bsdqsort}\\
-
+1 & 1972 & Unix & Lee Mcmahon & CAR Hoare's quick sort  & \cite{hoare1961algorithm}\\
+2 & 1983 & BSD & Lee Mcmahon & CAR Hoare's quick sort  & \cite{hoare1961algorithm}\\
+3 & 1991 & BSD & Douglas Schmidt & Bentley \& McIlroy’s quick sort  & \cite{bentley1993engineering}\\
+4 & 1991 & GNU & Douglas Schmidt & Bentley \& McIlroy’s quick sort  & \cite{bentley1993engineering}\\
+5 & 1998 & GNU & Mike Haertel & John von Neumann's merge sort  & \cite{knuth1998sorting}\\
 \bottomrule
 \end{tabular}
 \label{qsortalgo}
@@ -165,8 +165,8 @@ We will call an input array of elements for sorting as an instance and use insta
 The same instance and the same comparison function will be used by all participants, and all implementations will be compiled into one single program. 
 Since selection sort and bubble sort perform poorly on any large instance, they are disqualified from the race. 
 To be fair, the copy of \qusort with the best performance is used.
-Finally, five different sorting methods are chosen as participants in this race: insertion sort, shellsort~\cite{knuth97}, mergesort~\cite{mcilroy1993optimistic}, heapsort~\cite{williams1964algorithm}, and quicksort \textcolor{blue}{(Table \ref{qsortalgo}, row 1)}.
-To be clear, we summarize all the \qusort algorithms used in the paper excluding our own implementations in Table~\ref{qsortalgo}. 
+Finally, five different sorting methods are chosen as participants in this race: insertion sort, shellsort~\cite{knuth97}, mergesort~\cite{mcilroy1993optimistic}, heapsort~\cite{williams1964algorithm}, and quicksort~\cite{hoare1961algorithm}.
+%To be clear, we summarize all the \qusort algorithms used in the paper excluding our own implementations in Table~\ref{qsortalgo}. 
 
 \begin{table}
 \caption{The average running time of seven sorting methods on 4 types of inputs.}
@@ -185,7 +185,7 @@ average time & 126509 & -- &	5.18& 1.98 & 1.15 & \textbf{1.00} & 1.42 & 1.13 \\
 \label{table1}
 \end{table}
 
-Table~\ref{table1} shows the experimental results of our implementations of the five sorting methods plus the GNU C library \qsort \textcolor{blue}{(Table~\ref{qsortalgo}, row 3)} and \tsortn~\cite{timsort}, on four types of \textcolor{blue}{integer lists} as used in Demo, i.e., random, reverse sorted, nearly sorted, and few unique. 
+Table~\ref{table1} shows the experimental results of our implementations of the five sorting methods plus the GNU C library \qsort \textcolor{blue}{(Table~\ref{qsortalgo}, row 5)} and \tsortn~\cite{timsort}, on four types of \textcolor{blue}{integer lists} as used in Demo, i.e., random, reverse sorted, nearly sorted, and few unique. 
 All the methods are implemented in C and compiled as a single executable by gcc with optimization “-O3”. 
 The executable takes two parameters, the size and the type of the instance, and generates one instance and then run all the sorting methods on this instance. 
 This way, the same set of instances is used for each method.
@@ -198,7 +198,7 @@ The row “average time” represents the average time (in microseconds) of all 
 
 It is clear from the table that \qusort (nicknamed hyb2 in section 4) is the best overall method according to the best average time. 
 The second best method is \msort (nicknamed mer6 in section 3), which has the best performance for reverse sorted and nearly sorted instance. 
-The weak performance of $qsort$ on reverse sorted instances is typical for the standard recursive \msort algorithm on such inputs, as the \textcolor{blue}{the default GNU C-library function \qsort as of 2022 (Table~\ref{qsortalgo}, row 3) uses \emph{mergesort} but does not use natural \emph{mergesort}}.
+The weak performance of $qsort$ on reverse sorted instances is typical for the standard recursive \msort algorithm on such inputs, as the \textcolor{blue}{the default GNU C-library function \qsort as of 2022 (Table~\ref{qsortalgo}, row 5) uses \emph{mergesort} but does not use natural \emph{mergesort}}.
 
 %The performance of $qsort$, the sorting function in the C Standard Library, and timsort~\cite{timsort}, which are known as the best generic sorting methods, are given as a reference to show that our results are very competitive.  
 
@@ -213,8 +213,8 @@ Every experienced programmer knows that different implementations of the same al
 For Olympics, each country sends the best athletes to compete. 
 For sort race, we should choose the best implementation possible for each method.
 
-When talking about the best sorting implementation, we cannot ignore the existence of the \qsort \textcolor{blue}{(Table~\ref{qsortalgo}, row 3)} function in the C Standard Library.
-The \qsort function has long been considered the "best" sorting function and being implemented in different libraries. 
+When talking about the best sorting implementation, we cannot ignore the existence of the \qsort function in the C Standard Library.
+The \qsort function has long been considered the "best" sorting function and being implemented in different libraries \textcolor{blue}{(see Table \ref{qsortalgo})}. 
 Nowadays, the most popular \qsort is the GNU project’s libc implementation which powers most GNU/Linux distributions and several other operating systems. 
 This \qsort is interesting in that it shuns \qusort in favor of conventional topdown \msortn, due to the poor performance of \qusort on some types of instances~\cite{gnumergesort}.  
 Tim Peters created $timsort$ based on Peter McIlroy’s idea of natural mergesort~\cite{mcilroy1993optimistic}, which consists of two phases: in phase 1, sorted subarrays (called runs) are identified from the input; in phase 2, two \textcolor{blue}{runs} are merged into one run, until only one run remains. 
@@ -224,7 +224,7 @@ Different techniques are used in these implementations.
 As the first goal of this article, we will try to identify which techniques are more effective and which are less effective through extensive experiments. 
 From now on, by \msortn, we mean natural \msortn~\cite{mcilroy1993optimistic}.
 
-The most popular \qsort is the BSD \qsort \textcolor{blue}{(Table \ref{qsortalgo}, row 4)}, which is a version of \qusort based on Bentley and McIlroy’s \qsort function \textcolor{blue}{(Table \ref{qsortalgo}, row 2)}. 
+The most popular \qsort is the BSD \qsort \textcolor{blue}{(Table \ref{qsortalgo}, row 3)}, which is a version of \qusort based on Bentley and McIlroy’s \qsort function. 
 A significant deviation from Bentley and McIlroy’s \qsort is that the BSD \qsort resorts to insertion sort, not only for small arrays, but also whenever a partitioning round is completed without having moved any elements. 
 The latter is intended to capture nearly sorted inputs, since insertion sort will handle these cases efficiently. 
 However, this technique may \textcolor{blue}{missfire}. We found by accident that the BSD \qsort performs poorly on a set of instances. 
@@ -419,11 +419,12 @@ The advantage of \tsort over mer6 is shown on the first three randomized classes
 The idea of (d) cannot reduce the running time of mer6 while it can reduce the number of comparisons. 
 This may suggest that (e) is better than (e$_1$) and (e$_2$) for large size lists with high comparison costs. 
 
-For the three contrived classes, \keq, \kev, and \ksha, mer5 is the best performer among all implementations, while the GNU \qsort is at least three times slower than mer5. For k-exchange, \qsort is almost eight times slower than mer5.  
+For the three contrived classes, \keq, \kev, and \ksha, mer5 is the best performer among all implementations, while the GNU \qsort\textcolor{blue}{(Table \ref{qsortalgo}, row 5)} is at least three times slower than mer5. 
+For k-exchange, \qsort is almost eight times slower than mer5.  
 
 \section{Select Best QuickSort}       
 As the most popular sorting algorithm, \qusort has been extensively studied by many researchers and various techniques have been proposed. 
-In this study, we consider Bentley and McIlory’s \qsort implementation \textcolor{blue}{(Table \ref{qsortalgo}, row 2)}. 
+In this study, we consider Bentley \& McIlory(B\&M)’s \qsort implementation \textcolor{blue}{(Table \ref{qsortalgo}, row 3)}. 
 Let $n$ be the input array size, the following techniques are in B\&M \qsort function: 
 
 \begin{enumerate}[(a)]
@@ -444,7 +445,7 @@ Recursive calls apply to the first and the last parts.
 The 2-way splitting in any standard textbook~\cite{10.5555/1614191} also splits the array into three parts: the elements less than the pivot, the pivot, and the elements no less than the pivot. 
 Using (e) without (d), the array is split into two parts: the elements no greater than the pivot and the elements no less than the pivot. 
 
-The BSD \qsort function \textcolor{blue}{(Table \ref{qsortalgo}, row 4)} in the C library has some deviation from \textcolor{blue}{B\&M \qsortn}: the BSD \qsort also \textcolor{blue}{uses} insertion sort instead of recursive calls of \qsort, whenever a splitting round is completed without having moved any elements. 
+The BSD \qsort function \textcolor{blue}{(Table \ref{qsortalgo}, row 3)} in the C library has some deviation from \textcolor{blue}{B\&M \qsortn}: the BSD \qsort also \textcolor{blue}{uses} insertion sort instead of recursive calls of \qsort, whenever a splitting round is completed without having moved any elements. 
 This idea is intended to capture nearly sorted inputs and may perform poorly for certain inputs. 
 For instance, if an array contains $2m+1$ distinct integers, the first $m$ integers are the reversed list of numbers, the middle element is $m+1$, the last $m$ integers are the reversed $m+2$ through $2m+1$, then the BSD \qsort will use insertion sort to sort two reversed lists of $m$ elements. 
 We have tested the BSD \qsort on the 12 classes of inputs and its performance is very poor for the class of $k$-sharp teeth arrays. 
@@ -501,7 +502,7 @@ Comparing to \msort, \qusort as a \textcolor{blue}{family} is slower on non-rand
 %However, these inputs are no worse than randomized inputs. 
 In fact, the hybrid \qusort is the best performer over all the 12 classes of inputs. 
 If we have to select \textcolor{blue}{one implementation} of \qusortn, then hyb2 $(\alpha = \beta = 32)$ is the choice according to Table~\ref{table3}. 
-The GNU \qsort and \textcolor{blue}{B\&M \qsort (Table \ref{qsortalgo}, row 2)} are about 23\% slower than hyb2. 
+The GNU \qsort \textcolor{blue}{(Table \ref{qsortalgo}, row 5)} and \textcolor{blue}{B\&M \qsort (Table \ref{qsortalgo}, row 4)} are about 23\% slower than hyb2. 
 The use of idea (f) is indispensible for this performance as it helps \qusort to save time on nearly sorted inputs. 
 
 Sarwar et al.~\cite{sarwar1996engineering} once conducted \textcolor{blue}{extensive experiments} on \qusort and tried various methods for selecting a pivot (from 1, 3, 5, 9, and 17 elements). 
@@ -588,11 +589,11 @@ k-exchange&	0.02	&0.02	&0.02	&0.02	&1.06	&0.45	&0.00	&0.00	&0.00	&0.00\\
 \end{table}
 
 \begin{table}
-\caption{Value of t in the number of comparisons function $f(n) = sn\log(n) + tn$.}
+\caption{Value of $t$ in the number of comparisons function $f(n) = sn\log(n) + tn$.}
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \toprule
-value of s & 3-way & 2-way & hyb2 & hyb4 & B\&M& qsort & mer4 & mer5 & mer6 & Tim \\
+value of $s$ & 3-way & 2-way & hyb2 & hyb4 & B\&M& qsort & mer4 & mer5 & mer6 & Tim \\
 \midrule
 random 16-list	&-1.03	&1.36	&1.31	&0.56	&-0.59	&-1.34	&-1.53	&-0.43	&0.16&	-1.80\\
 random 64-list&-1.09&	1.47&	1.44&	0.13&	-1.53&	-1.40&	-1.98&	-0.38&	1.08&	-1.77\\
@@ -611,12 +612,12 @@ k-exchange&	5.65	&5.65	&5.65	&5.65	&-2.41	&2.92	&1.05	&1.05	&1.05	&1.05\\
 \label{table6}
 \end{table}
 
-Table~\ref{table5} and~\ref{table6} give the values of $s$ and $t$ for the selected 10 sorting methods. 
+Tables~\ref{table5} and~\ref{table6} give the values of $s$ and $t$ for the selected 10 sorting methods. 
 For randomized inputs, the values of $s$ for the 10 methods are close to 1, indicating these are very good sorting methods. 
 For instance, for hyb4 over random doubles, the number of comparisons is $f(n) = 1.02n\log(n) + 2.16n$. 
 These numbers also indicate that the relative strength of these method tend to be the same as comparison functions of different costs are used. 
 For the classes of \keq\ and \kev\ arrays, the $s$ values of \qusort are slightly larger than 1, indicating that these are hard problems for \qusort. 
-For the last six classes, with the exception of the GNU \qsort \textcolor{blue}{(Table~\ref{qsortalgo}, row 3)}, the $s$ values of the \msort methods are (almost) zero. 
+For the last six classes, with the exception of the GNU \qsort \textcolor{blue}{(Table~\ref{qsortalgo}, row 5)}, the $s$ values of the \msort methods are (almost) zero. 
 That is, these methods take linear time to sort these six classes.  
 That explains why these methods are so fast on these inputs.
 
